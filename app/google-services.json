@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "214828935567",
+    "firebase_url": "https://marketplaceapp-c265f.firebaseio.com",
+    "project_id": "marketplaceapp-c265f",
+    "storage_bucket": "marketplaceapp-c265f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:214828935567:android:ea450413e891e5f1",
+        "android_client_info": {
+          "package_name": "com.example.vince.marketplaceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "214828935567-e8t8k3bl2vpr8mjh7el7uk9t9sqcn56j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vince.marketplaceapp",
+            "certificate_hash": "70607c7b7f0eafb9c2c79b61ddd37b3ce8b56f9f"
+          }
+        },
+        {
+          "client_id": "214828935567-7910i036nsjmr3l5kun65no5ug3197fi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzjItDn8JPUvzS6LFEYFad_n0acGQ3ffs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "214828935567-7910i036nsjmr3l5kun65no5ug3197fi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -103,12 +103,6 @@
             android:onClick="confirmOrder"
             android:text="Done" />
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:text="Preview item" />
-
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
