@@ -21,12 +21,14 @@ import android.widget.Toast;
 
 import com.example.vince.marketplaceapp.MainActivity;
 import com.example.vince.marketplaceapp.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 
-public class AddOfferActivity extends Activity {
+public class AddOfferActivity extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMG = 1;
     ImageView targetImage;
@@ -37,8 +39,34 @@ public class AddOfferActivity extends Activity {
     EditText editTextPhone;
     Button done;
 
+    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference nameRef = rootRef.child("name");
 
 
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_offer);
+        Button buttonLoadImage = (Button)findViewById(R.id.loadimage);
+        targetImage = (ImageView)findViewById(R.id.targetimage);
+        editTextName = (EditText)findViewById(R.id.editTextName);
+        editTextDescription = (EditText) findViewById(R.id.editTextDescription);
+        editTextPrice = (EditText) findViewById(R.id.editTextPrice);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextPhone = (EditText) findViewById(R.id.editTextPhone);
+
+        buttonLoadImage.setOnClickListener(new Button.OnClickListener(){
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 0);
+            }});
+    }
 
 
     //Pop-up to confirm order.
@@ -51,16 +79,14 @@ public class AddOfferActivity extends Activity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText usernameEditText = (EditText) findViewById(R.id.editText4);
-                        String sUsername = usernameEditText.getText().toString();
+                        String sUsername = editTextName.getText().toString();
 
                         //Checks if all required fields are filled in.
                         if (sUsername.matches("")) {
                             Toast.makeText(getBaseContext(), "You did not provide a name", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        usernameEditText = (EditText) findViewById(R.id.editText10);
-                        sUsername = usernameEditText.getText().toString();
+                        sUsername = editTextPrice.getText().toString();
 
                         //Checks if all required fields are filled in.
                         if (sUsername.matches("")) {
@@ -68,9 +94,7 @@ public class AddOfferActivity extends Activity {
                             return;
                         }
 
-
-                        usernameEditText = (EditText) findViewById(R.id.editText5);
-                        sUsername = usernameEditText.getText().toString();
+                        sUsername = editTextDescription.getText().toString();
 
                         //Checks if all required fields are filled in.
                         if (sUsername.matches("")) {
@@ -78,10 +102,8 @@ public class AddOfferActivity extends Activity {
                             return;
                         }
 
-                        usernameEditText = (EditText) findViewById(R.id.editText3);
-                        sUsername = usernameEditText.getText().toString();
-                        EditText usernameEditText2 = (EditText) findViewById(R.id.editText6);
-                        String sUsername2 = usernameEditText2.getText().toString();
+                        sUsername = editTextEmail.getText().toString();
+                        String sUsername2 = editTextPhone.getText().toString();
 
                         //Checks if all required fields are filled in.
                         if (sUsername.matches("")&&sUsername2.matches("")) {
@@ -89,15 +111,11 @@ public class AddOfferActivity extends Activity {
                             return;
                         }
 
-
-
-
-
                         //Returns to main menu
                         else {
+                            nameRef.setValue(editTextName.getText());
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
-
 
                     }
                 });
@@ -111,24 +129,8 @@ public class AddOfferActivity extends Activity {
         dialog.show();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_offer);
-        Button buttonLoadImage = (Button)findViewById(R.id.loadimage);
-        //textTargetUri = (TextView)findViewById(R.id.targeturi);
-        targetImage = (ImageView)findViewById(R.id.targetimage);
 
-        buttonLoadImage.setOnClickListener(new Button.OnClickListener(){
 
-            @Override
-            public void onClick(View arg0) {
-                // TODO Auto-generated method stub
-                Intent intent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, 0);
-            }});
-    }
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, Intent data){
         // TODO Auto-generated method stub
