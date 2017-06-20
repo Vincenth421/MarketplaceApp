@@ -15,7 +15,7 @@
         tools:layout_editor_absoluteY="8dp">
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -38,7 +38,7 @@
 
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/editTextDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -52,7 +52,7 @@
             android:weightSum="1">
 
             <EditText
-                android:id="@+id/editText10"
+                android:id="@+id/editTextPrice"
                 android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -77,7 +77,7 @@
                     tools:layout_editor_absoluteY="-12dp" />
 
                 <EditText
-                    android:id="@+id/editText6"
+                    android:id="@+id/editTextEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -86,7 +86,7 @@
                     android:visibility="visible" />
 
                 <EditText
-                    android:id="@+id/editText3"
+                    android:id="@+id/editTextPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -97,7 +97,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonDone"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:onClick="confirmOrder"

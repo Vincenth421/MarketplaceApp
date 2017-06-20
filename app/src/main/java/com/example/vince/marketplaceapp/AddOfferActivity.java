@@ -30,6 +30,13 @@ public class AddOfferActivity extends Activity {
 
     private static int RESULT_LOAD_IMG = 1;
     ImageView targetImage;
+    EditText editTextName;
+    EditText editTextDescription;
+    EditText editTextPrice;
+    EditText editTextEmail;
+    EditText editTextPhone;
+    Button done;
+
 
 
 
