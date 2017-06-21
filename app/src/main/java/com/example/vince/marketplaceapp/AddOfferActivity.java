@@ -113,7 +113,7 @@ public class AddOfferActivity extends AppCompatActivity {
 
                         //Returns to main menu
                         else {
-                            nameRef.setValue(editTextName.getText());
+                            nameRef.setValue(editTextName.getText().toString());
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
 
