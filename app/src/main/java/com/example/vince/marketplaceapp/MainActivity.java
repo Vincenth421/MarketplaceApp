@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import android.app.FragmentManager;
+import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,17 +44,19 @@ public class MainActivity extends Activity  {
         spinner.setAdapter(adapter);
         //mNetworkFragment = NetworkFragment.getInstance(getSupportFragmentManager(), "https://www.google.com");
 
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        offerRef.addValueEventListener(new ValueEventListener() {
+        rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                offers.setText(dataSnapshot.getValue(String.class));
+                for(DataSnapshot child : dataSnapshot.getChildren())
+                {
+                    offers.setText(child.child("name").toString());
+                }
             }
 
             @Override

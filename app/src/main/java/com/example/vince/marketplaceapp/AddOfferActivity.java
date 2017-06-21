@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Config;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,10 +41,8 @@ public class AddOfferActivity extends AppCompatActivity {
     Button done;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference nameRef = rootRef.child("name");
-
-
-
+    DatabaseReference idRef;
+    DatabaseReference nameRef;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,6 +112,8 @@ public class AddOfferActivity extends AppCompatActivity {
 
                         //Returns to main menu
                         else {
+                            idRef = rootRef.push();
+                            nameRef = idRef.child("name");
                             nameRef.setValue(editTextName.getText().toString());
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
