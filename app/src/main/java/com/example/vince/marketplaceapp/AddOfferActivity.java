@@ -40,6 +40,7 @@ public class AddOfferActivity extends AppCompatActivity {
     EditText editTextPrice;
     EditText editTextEmail;
     EditText editTextPhone;
+    private int userNumber = 1;
     Button done;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -91,20 +92,14 @@ public class AddOfferActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String sUsername = editTextName.getText().toString();
 
-                        //Checks if all required fields are filled in.
+                        //Checks if name is filled in.
                         if (sUsername.matches("")) {
                             Toast.makeText(getBaseContext(), "You did not provide a name", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         sUsername = editTextPrice.getText().toString();
 
-                        //Checks if all required fields are filled in.
-                        if (sUsername.matches("")) {
-                            Toast.makeText(getBaseContext(), "You did not provide a price", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        //Checks if all required fields are filled in.
+                        //Checks if price is filled in.
                         if (sUsername.matches("")) {
                             Toast.makeText(getBaseContext(), "You did not provide a price", Toast.LENGTH_SHORT).show();
                             return;
@@ -112,7 +107,7 @@ public class AddOfferActivity extends AppCompatActivity {
 
                         sUsername = editTextDescription.getText().toString();
 
-                        //Checks if all required fields are filled in.
+                        //Checks if description is filled in.
                         if (sUsername.matches("")) {
                             Toast.makeText(getBaseContext(), "You did not provide a description", Toast.LENGTH_SHORT).show();
                             return;
@@ -121,7 +116,7 @@ public class AddOfferActivity extends AppCompatActivity {
                         sUsername = editTextEmail.getText().toString();
                         String sUsername2 = editTextPhone.getText().toString();
 
-                        //Checks if all required fields are filled in.
+                        //Checks if contact info is filled in.
                         if (sUsername.matches("")&&sUsername2.matches("")) {
                             Toast.makeText(getBaseContext(), "You did not provide your contact information", Toast.LENGTH_SHORT).show();
                             return;
@@ -129,12 +124,24 @@ public class AddOfferActivity extends AppCompatActivity {
 
                         //Returns to main menu
                         else {
-                            nameRef = rootRef.push();
-                            nameRef = rootRef.child("user");
+                            //nameRef = rootRef.push().setValue(str);
+                            //nameRef = rootRef.child("user");
                             String str = editTextName.getText().toString() + "," +
-                                    editTextDescription.getText().toString() + "," + editTextPrice.getText().toString()
-                                    + "," + editTextEmail.getText().toString() + "," + editTextPhone.getText().toString();
-                            nameRef.setValue(str);
+                                    editTextDescription.getText().toString() + "," + "$" + editTextPrice.getText().toString()
+                                    + ",";
+                            if(editTextEmail.getText().toString().equals(""))
+                            {
+                                str += "none,";
+                                str += editTextPhone.getText().toString();
+                            }
+                            else if(editTextPhone.getText().toString().equals(""))
+                            {
+                                str += editTextEmail.getText().toString().equals("");
+                                str += ",none";
+
+                            }
+                            rootRef.child("user" + userNumber).setValue(str);
+                            userNumber++;
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
 

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name of item"
-            android:textSize="24dp"/>
+            android:textSize="24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                 android:layout_width="178dp"
                 android:layout_height="47dp"
                 android:text="Price"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,14 +92,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="47dp"
                     android:text="name@example.com"
-                    android:textSize="16dp"/>
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="47dp"
                     android:text="(###)###-####"
-                    android:textSize="18dp"/>
+                    android:textSize="18dp" />
 
             </LinearLayout>
 
