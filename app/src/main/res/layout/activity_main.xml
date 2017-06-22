@@ -75,7 +75,9 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2.3">
+            android:layout_weight="2.3"
+            android:paddingLeft="10dp">
+
             <LinearLayout
                 android:id="@+id/listingsLayout"
                 android:layout_width="match_parent"
