@@ -50,10 +50,10 @@ public class DisplayOffer extends AppCompatActivity {
                 textViewPrice.setText(store[2]);
                 textViewEmail.setText(store[3]);
                 textViewPhone.setText(store[4]);
-                if(store[3].isEmpty()){
+                if(store[3].equals("none")){
                     textViewEmail.setText("Not provided.");
                 }
-                if(store[4].isEmpty()){
+                if(store[4].equals("none")){
                     textViewPhone.setText("Not provided.");
                 }
 
