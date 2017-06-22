@@ -47,8 +47,9 @@ public class AddOfferActivity extends AppCompatActivity {
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference nameRef;
 
-    SharedPreferences mPrefs = getSharedPreferences("label", 0);
-    String mString = mPrefs.getString("tag", "default_value_if_variable_not_found");
+    SharedPreferences mPrefs = getshar
+    String mString = mPrefs.get
+    //String mString = mPrefs.getString("tag", "default_value_if_variable_not_found");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
