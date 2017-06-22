@@ -53,10 +53,16 @@ public class MainActivity extends Activity  {
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot child : dataSnapshot.getChildren())
+                if(dataSnapshot.child("user") == null)
                 {
-                    offers.setText(child.child("name").toString());
+                    offers.setText("No Offers Yet");
                 }
+                
+                String str = dataSnapshot.child("user").toString();
+                Character c = ',';
+
+                offers.setText(str.substring(0,str.indexOf(c)));
+
             }
 
             @Override
