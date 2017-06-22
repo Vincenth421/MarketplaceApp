@@ -62,7 +62,7 @@ public class MainActivity extends Activity  {
 
                 else {
                     canDisplay = true;
-                    String str = dataSnapshot.child("user").getValue().toString();
+                    String str = dataSnapshot.child("user1").getValue().toString();
                     Character c = ',';
 
                     offers.setText(str.substring(0, str.indexOf(c)));

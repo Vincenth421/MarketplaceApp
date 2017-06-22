@@ -128,7 +128,18 @@ public class AddOfferActivity extends AppCompatActivity {
                             //nameRef = rootRef.child("user");
                             String str = editTextName.getText().toString() + "," +
                                     editTextDescription.getText().toString() + "," + "$" + editTextPrice.getText().toString()
-                                    + "," + editTextEmail.getText().toString() + "," + editTextPhone.getText().toString();
+                                    + ",";
+                            if(editTextEmail.getText().toString().equals(""))
+                            {
+                                str += "none,";
+                                str += editTextPhone.getText().toString();
+                            }
+                            else if(editTextPhone.getText().toString().equals(""))
+                            {
+                                str += editTextEmail.getText().toString().equals("");
+                                str += ",none";
+
+                            }
                             rootRef.child("user" + userNumber).setValue(str);
                             userNumber++;
                             startActivity(new Intent(getBaseContext(), MainActivity.class));

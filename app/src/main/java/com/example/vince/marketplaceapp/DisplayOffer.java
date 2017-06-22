@@ -43,7 +43,7 @@ public class DisplayOffer extends AppCompatActivity {
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String str = dataSnapshot.child("user").getValue().toString();
+                String str = dataSnapshot.child("user1").getValue().toString();
                 String[] store = str.split(",");
                 textViewName.setText(store[0]);
                 textViewDescription.setText(store[1]);
