@@ -28,6 +28,8 @@ public class MainActivity extends Activity  {
     DatabaseReference offerRef = rootRef.child("name");
     TextView offers;
 
+    private boolean canDisplay = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,15 +55,18 @@ public class MainActivity extends Activity  {
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child("user") == null)
+                if(!dataSnapshot.hasChildren())
                 {
                     offers.setText("No Offers Yet");
                 }
-                
-                String str = dataSnapshot.child("user").toString();
-                Character c = ',';
 
-                offers.setText(str.substring(0,str.indexOf(c)));
+                else {
+                    canDisplay = true;
+                    String str = dataSnapshot.child("user").getValue().toString();
+                    Character c = ',';
+
+                    offers.setText(str.substring(0, str.indexOf(c)));
+                }
 
             }
 
@@ -80,7 +85,9 @@ public class MainActivity extends Activity  {
     public void goToDisplayOffer(View view)
     {
         Intent intent = new Intent(this, DisplayOffer.class);
-        startActivity(intent);
+        if(canDisplay) {
+            startActivity(intent);
+        }
     }
 
 }
