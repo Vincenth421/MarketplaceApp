@@ -2,8 +2,8 @@
 <resources>
     <string-array
         name="category_array2">
-        <item>Select</item>
-        <item>Cars</item>
+        <item>--Select--</item>
+        <item>Automobiles</item>
         <item>Clothes</item>
         <item>Electronics</item>
         <item>Furniture</item>
