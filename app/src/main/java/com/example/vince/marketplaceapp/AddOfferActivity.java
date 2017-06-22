@@ -41,7 +41,6 @@ public class AddOfferActivity extends AppCompatActivity {
     Button done;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference idRef;
     DatabaseReference nameRef;
 
     @Override
@@ -112,8 +111,9 @@ public class AddOfferActivity extends AppCompatActivity {
 
                         //Returns to main menu
                         else {
-                            idRef = rootRef.push();
-                            nameRef = idRef.child("name");
+                            nameRef = rootRef.push();
+                            nameRef = rootRef.child("user");
+                            String str = editTextName.toString() + editTextDescription.toString() + editTextPrice.toString() + editTextPhone.toString();
                             nameRef.setValue(editTextName.getText().toString());
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
