@@ -40,6 +40,7 @@ public class AddOfferActivity extends AppCompatActivity {
     EditText editTextPrice;
     EditText editTextEmail;
     EditText editTextPhone;
+    private int userNumber = 1;
     Button done;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -126,9 +127,10 @@ public class AddOfferActivity extends AppCompatActivity {
                             //nameRef = rootRef.push().setValue(str);
                             //nameRef = rootRef.child("user");
                             String str = editTextName.getText().toString() + "," +
-                                    editTextDescription.getText().toString() + "," + editTextPrice.getText().toString()
+                                    editTextDescription.getText().toString() + "," + "$" + editTextPrice.getText().toString()
                                     + "," + editTextEmail.getText().toString() + "," + editTextPhone.getText().toString();
-                            nameRef.setValue(str);
+                            rootRef.child("user" + userNumber).setValue(str);
+                            userNumber++;
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
 

@@ -2,11 +2,12 @@
 <resources>
     <string-array
         name="category_array2">
-        <item>Other</item>
+        <item>Select</item>
         <item>Cars</item>
         <item>Clothes</item>
-        <item>Home Appliances</item>
         <item>Electronics</item>
         <item>Furniture</item>
+        <item>Home Appliances</item>
+        <item>Other</item>
     </string-array>
 </resources>
