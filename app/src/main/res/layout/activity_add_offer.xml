@@ -40,24 +40,39 @@
         <EditText
             android:id="@+id/editTextDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="59dp"
             android:ems="10"
             android:hint="Description of item"
             android:inputType="textPersonName" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="126dp"
             android:orientation="horizontal"
             android:weightSum="1">
 
-            <EditText
-                android:id="@+id/editTextPrice"
-                android:layout_width="178dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Price"
-                android:inputType="numberDecimal" />
+            <LinearLayout
+                android:layout_width="173dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <EditText
+                    android:id="@+id/editTextPrice"
+                    android:layout_width="178dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Price"
+                    android:inputType="numberDecimal" />
+
+                <Spinner
+                    android:id="@+id/spinner2"
+                    android:layout_width="178dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.31"
+                    android:hint="Category" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,11 +110,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="178dp"
-            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/buttonDone"
