@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -22,11 +23,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends Activity  {
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference offerRef = rootRef.child("name");
     TextView offers;
+    LinearLayout listings;
 
     private boolean canDisplay = false;
 
@@ -34,7 +38,7 @@ public class MainActivity extends Activity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         offers = (TextView) findViewById(R.id.textViewOffers);
+        listings = (LinearLayout) findViewById(R.id.listingsLayout);
 
         Spinner spinner = (Spinner) findViewById(R.id.categories_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -62,10 +66,16 @@ public class MainActivity extends Activity  {
 
                 else {
                     canDisplay = true;
-                    String str = dataSnapshot.child("user1").getValue().toString();
-                    Character c = ',';
+                    for(DataSnapshot child : dataSnapshot.getChildren()) {
 
-                    offers.setText(str.substring(0, str.indexOf(c)));
+                        TextView offer = new TextView(MainActivity.this);
+                        String str = child.getValue().toString();
+                        Character c = ',';
+                        offer.setText(str.substring(0, str.indexOf(c)));
+                        offer.setTextSize(24);
+                        offer.setTypeface(null, Typeface.BOLD);
+                        listings.addView(offer);
+                    }
                 }
 
             }

@@ -72,17 +72,16 @@
                 android:text="Add Offer" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewOffers"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2.5"
-            android:textSize="30dp"
-            android:paddingLeft="5dp"
-            android:textStyle="bold"
-            android:clickable="true"
-            android:onClick="goToDisplayOffer"
-            android:text="" />
+            android:layout_weight="2.3">
+            <LinearLayout
+                android:id="@+id/listingsLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

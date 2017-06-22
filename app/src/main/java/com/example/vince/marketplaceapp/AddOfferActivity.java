@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -45,6 +46,9 @@ public class AddOfferActivity extends AppCompatActivity {
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference nameRef;
+
+    SharedPreferences mPrefs = getSharedPreferences("label", 0);
+    String mString = mPrefs.getString("tag", "default_value_if_variable_not_found");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -136,11 +140,11 @@ public class AddOfferActivity extends AppCompatActivity {
                             }
                             else if(editTextPhone.getText().toString().equals(""))
                             {
-                                str += editTextEmail.getText().toString().equals("");
+                                str += editTextEmail.getText().toString();
                                 str += ",none";
 
                             }
-                            rootRef.child("user" + userNumber).setValue(str);
+                            rootRef.child("user2").setValue(str);
                             userNumber++;
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
