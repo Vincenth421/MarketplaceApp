@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:weightSum="1"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <EditText
             android:id="@+id/editTextName"
@@ -95,6 +95,11 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/buttonDone"
