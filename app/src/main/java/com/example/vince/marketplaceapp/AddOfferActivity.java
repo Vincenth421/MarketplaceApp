@@ -2,17 +2,20 @@ package com.example.vince.marketplaceapp;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Config;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,7 +29,10 @@ import com.example.vince.marketplaceapp.MainActivity;
 import com.example.vince.marketplaceapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -42,9 +48,18 @@ public class AddOfferActivity extends AppCompatActivity {
     EditText editTextPhone;
     private int userNumber = 1;
     Button done;
+    Button chooseImg;
+    ImageView imgView;
+    int PICK_IMAGE_REQUEST = 111;
+    Uri filePath;
+    ProgressDialog pd;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference nameRef;
+
+    //creating reference to firebase storage
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReferenceFromUrl("gs://marketplaceapp-c265f.appspot.com");
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +92,25 @@ public class AddOfferActivity extends AppCompatActivity {
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 0);
             }});
+        //Image stuff
+        chooseImg = (Button)findViewById(R.id.loadimage);
+        imgView = (ImageView)findViewById(R.id.targetimage);
+
+        pd = new ProgressDialog(this);
+        pd.setMessage("Uploading....");
+
+
+        chooseImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+            }
+        });
     }
+
 
 
     //Pop-up to confirm order.
@@ -172,6 +205,19 @@ public class AddOfferActivity extends AppCompatActivity {
                 targetImage.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
+
+            try {
+                //getting image from gallery
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+                //Setting image to ImageView
+                imgView.setImageBitmap(bitmap);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
