@@ -19,14 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Name of item"
+            android:hint="Name of item (Required)"
             android:inputType="textPersonName" />
 
         <Button
             android:id="@+id/loadimage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Image" />
+            android:text="Add Image (Optional)" />
 
         <ImageView
             android:id="@+id/targetimage"
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="59dp"
             android:ems="10"
-            android:hint="Description of item"
+            android:hint="Description of item (Required)"
             android:inputType="textPersonName" />
 
         <LinearLayout
@@ -62,7 +62,7 @@
                     android:layout_width="178dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="Price"
+                    android:hint="Price (Required)"
                     android:inputType="numberDecimal" />
 
                 <Spinner
@@ -70,7 +70,8 @@
                     android:layout_width="178dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.31"
-                    android:hint="Category" />
+                    android:textAlignment="center"
+                    android:hint="Category (Required)" />
 
             </LinearLayout>
 
@@ -111,12 +112,38 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonDone"
-            android:layout_width="100dp"
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:text="At least one 'Contact Info' is required."
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="confirmOrder"
-            android:text="Done" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+
+            <Button
+                android:id="@+id/buttonDone"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:onClick="confirmOrder"
+                android:text="Done" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
