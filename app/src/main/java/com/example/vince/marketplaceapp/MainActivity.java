@@ -81,10 +81,10 @@ public class MainActivity extends Activity  {
                         sd.setShape(new RectShape());
 
                         // Specify the border color of shape
-                        sd.getPaint().setColor(Color.RED);
+                        sd.getPaint().setColor(Color.BLUE);
 
                         // Set the border width
-                        sd.getPaint().setStrokeWidth(10f);
+                        sd.getPaint().setStrokeWidth(5f);
 
                         // Specify the style is a Stroke
                         sd.getPaint().setStyle(Paint.Style.STROKE);
