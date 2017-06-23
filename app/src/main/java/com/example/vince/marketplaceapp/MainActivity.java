@@ -59,7 +59,7 @@ public class MainActivity extends Activity  {
     @Override
     protected void onStart() {
         super.onStart();
-
+        listings.removeAllViews();
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
