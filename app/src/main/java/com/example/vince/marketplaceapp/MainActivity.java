@@ -96,8 +96,8 @@ public class MainActivity extends Activity  {
                         Character c = ',';
                         offer.setText(str.substring(0, str.indexOf(c)));
                         offer.setTextSize(24);
-                        offer.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                         offer.setTypeface(null, Typeface.BOLD);
+                        offer.setMaxEms(20);
                         offer.setClickable(true);
                         offer.setOnClickListener(new View.OnClickListener() {
 
