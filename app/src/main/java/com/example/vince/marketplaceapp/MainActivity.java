@@ -67,7 +67,6 @@ public class MainActivity extends Activity  {
                 {
                     offers.setText("No Offers Yet");
                 }
-
                 else {
                     canDisplay = true;
                     for(DataSnapshot child : dataSnapshot.getChildren()) {
@@ -85,14 +84,23 @@ public class MainActivity extends Activity  {
                         // Specify the style is a Stroke
                         sd.getPaint().setStyle(Paint.Style.STROKE);
 
-                        // Finally, add the drawable background to TextView
-
                         TextView offer = new TextView(MainActivity.this);
+                        final Intent displayIntent = new Intent(MainActivity.this, DisplayOffer.class);
                         String str = child.getValue().toString();
                         Character c = ',';
                         offer.setText(str.substring(0, str.indexOf(c)));
                         offer.setTextSize(24);
                         offer.setTypeface(null, Typeface.BOLD);
+                        offer.setClickable(true);
+                        offer.setOnClickListener(new View.OnClickListener() {
+
+                            @Override
+                            public void onClick(View v) {
+                                startActivity(displayIntent);
+
+                            }
+                        });
+                        // Finally, add the drawable background to TextView
                         offer.setBackground(sd);
 
                         listings.addView(offer);
