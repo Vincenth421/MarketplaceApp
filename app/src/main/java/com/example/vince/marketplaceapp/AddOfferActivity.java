@@ -112,6 +112,36 @@ public class AddOfferActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
             }
         });
+        uploadImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(filePath != null) {
+                    pd.show();
+
+                    StorageReference childRef = storageRef.child("image.jpg");
+
+                    //uploading the image
+                    UploadTask uploadTask = childRef.putFile(filePath);
+
+                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            pd.dismiss();
+                            Toast.makeText(AddOfferActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            pd.dismiss();
+                            Toast.makeText(AddOfferActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                else {
+                    Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
     }
 
@@ -124,7 +154,7 @@ public class AddOfferActivity extends AppCompatActivity {
 
 
     //Pop-up to confirm order.
-    public void confirmOrder(View view) {
+    /**public void confirmOrder(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("Confirm Order");
@@ -185,36 +215,7 @@ public class AddOfferActivity extends AppCompatActivity {
                             }
                             rootRef.child("user2").setValue(str);
                             userNumber++;
-                            uploadImg.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    if(filePath != null) {
-                                        pd.show();
 
-                                        StorageReference childRef = storageRef.child("image.jpg");
-
-                                        //uploading the image
-                                        UploadTask uploadTask = childRef.putFile(filePath);
-
-                                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                pd.dismiss();
-                                                Toast.makeText(AddOfferActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                pd.dismiss();
-                                                Toast.makeText(AddOfferActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-                                    }
-                                    else {
-                                        Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
 
@@ -228,7 +229,7 @@ public class AddOfferActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
+    }*/
 
 
 
