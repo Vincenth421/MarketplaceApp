@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Config;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,6 +37,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -191,7 +194,27 @@ public class AddOfferActivity extends AppCompatActivity {
                             if(filePath != null) {
                                 pd.show();
 
-                                StorageReference childRef = storageRef.child("image" + 2 + ".jpg");
+                                rootRef.runTransaction(new Transaction.Handler() {
+                                    @Override
+                                    public Transaction.Result doTransaction(MutableData mutableData) {
+                                        if (mutableData.getValue() == null) {
+                                            mutableData.setValue(1);
+                                            userNumber= mutableData.getValue(Integer.class);
+                                        } else {
+                                            int count = mutableData.getValue(Integer.class);
+                                            mutableData.setValue(count + 1);
+                                            userNumber= mutableData.getValue(Integer.class);
+                                        }
+                                        return Transaction.success(mutableData);
+                                    }
+
+                                    @Override
+                                    public void onComplete(DatabaseError databaseError, boolean success, DataSnapshot dataSnapshot) {
+                                        // Analyse databaseError for any error during increment
+                                    }
+                                });
+
+                                StorageReference childRef = storageRef.child("image" + userNumber + ".jpg");
 
                                 //uploading the image
                                 UploadTask uploadTask = childRef.putFile(filePath);
@@ -230,7 +253,6 @@ public class AddOfferActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, Intent data) {
