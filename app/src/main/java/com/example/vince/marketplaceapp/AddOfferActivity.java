@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import android.support.v7.app.AlertDialog;
@@ -27,10 +28,13 @@ import android.widget.Toast;
 
 import com.example.vince.marketplaceapp.MainActivity;
 import com.example.vince.marketplaceapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -48,7 +52,7 @@ public class AddOfferActivity extends AppCompatActivity {
     EditText editTextPhone;
     private int userNumber = 1;
     Button done;
-    Button chooseImg;
+    Button chooseImg, uploadImg;
     int PICK_IMAGE_REQUEST = 111;
     Uri filePath;
     ProgressDialog pd;
@@ -93,6 +97,7 @@ public class AddOfferActivity extends AppCompatActivity {
             }});
         //Image stuff
         chooseImg = (Button)findViewById(R.id.loadimage);
+        uploadImg = (Button)findViewById(R.id.buttonDone);
 
         pd = new ProgressDialog(this);
         pd.setMessage("Uploading....");
@@ -107,6 +112,7 @@ public class AddOfferActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
             }
         });
+
     }
 
     public void cancel(View view)
@@ -179,6 +185,36 @@ public class AddOfferActivity extends AppCompatActivity {
                             }
                             rootRef.child("user2").setValue(str);
                             userNumber++;
+                            uploadImg.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    if(filePath != null) {
+                                        pd.show();
+
+                                        StorageReference childRef = storageRef.child("image.jpg");
+
+                                        //uploading the image
+                                        UploadTask uploadTask = childRef.putFile(filePath);
+
+                                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                pd.dismiss();
+                                                Toast.makeText(AddOfferActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                pd.dismiss();
+                                                Toast.makeText(AddOfferActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
 
