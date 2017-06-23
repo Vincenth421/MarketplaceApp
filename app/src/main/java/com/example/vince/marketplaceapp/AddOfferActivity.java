@@ -96,6 +96,9 @@ public class AddOfferActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }});
 
+        pd = new ProgressDialog(this);
+        pd.setMessage("Uploading....");
+
         //Image stuff
         /*chooseImg = (Button)findViewById(R.id.loadimage);
         uploadImg = (Button)findViewById(R.id.buttonDone);
@@ -232,6 +235,7 @@ public class AddOfferActivity extends AppCompatActivity {
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                         pd.dismiss();
                                         Toast.makeText(AddOfferActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getBaseContext(), MainActivity.class));
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -245,7 +249,7 @@ public class AddOfferActivity extends AppCompatActivity {
                             else {
                                 Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
                             }
-                            startActivity(new Intent(getBaseContext(), MainActivity.class));
+
                         }
 
                     }
@@ -268,6 +272,7 @@ public class AddOfferActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
+            filePath = data.getData();
             Uri targetUri = data.getData();
             Bitmap bitmap;
             try {
