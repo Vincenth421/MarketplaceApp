@@ -49,7 +49,6 @@ public class AddOfferActivity extends AppCompatActivity {
     private int userNumber = 1;
     Button done;
     Button chooseImg;
-    ImageView imgView;
     int PICK_IMAGE_REQUEST = 111;
     Uri filePath;
     ProgressDialog pd;
@@ -94,7 +93,6 @@ public class AddOfferActivity extends AppCompatActivity {
             }});
         //Image stuff
         chooseImg = (Button)findViewById(R.id.loadimage);
-        imgView = (ImageView)findViewById(R.id.targetimage);
 
         pd = new ProgressDialog(this);
         pd.setMessage("Uploading....");
@@ -199,21 +197,9 @@ public class AddOfferActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+    protected void onActivityResult ( int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-            Uri targetUri = data.getData();
-            Bitmap bitmap;
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                targetImage.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
 
@@ -222,12 +208,14 @@ public class AddOfferActivity extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
                 //Setting image to ImageView
-                imgView.setImageBitmap(bitmap);
+                targetImage.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
     }
-
-
 }
+
+
+
