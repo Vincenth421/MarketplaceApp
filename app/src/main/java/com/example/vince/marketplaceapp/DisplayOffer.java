@@ -22,6 +22,8 @@ public class DisplayOffer extends AppCompatActivity {
     TextView textViewEmail;
     TextView textViewPhone;
 
+    MainActivity main = new MainActivity();
+
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference nameRef;
 

@@ -65,7 +65,12 @@ public class MainActivity extends Activity  {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(!dataSnapshot.hasChildren())
                 {
-                    offers.setText("No Offers Yet");
+                    TextView offer = new TextView(MainActivity.this);
+                    offer.setText("No Offers Yet");
+                    offer.setTextSize(24);
+                    offer.setTypeface(null, Typeface.BOLD);
+                    offer.setClickable(false);
+                    listings.addView(offer);
                 }
                 else {
                     canDisplay = true;
@@ -102,10 +107,9 @@ public class MainActivity extends Activity  {
                         });
                         // Finally, add the drawable background to TextView
                         offer.setBackground(sd);
-
                         listings.addView(offer);
-                    }
-                }
+            }
+        }
 
             }
 
@@ -121,12 +125,5 @@ public class MainActivity extends Activity  {
         startActivity(intent);
     }
 
-    public void goToDisplayOffer(View view)
-    {
-        Intent intent = new Intent(this, DisplayOffer.class);
-        if(canDisplay) {
-            startActivity(intent);
-        }
-    }
 
 }

@@ -30,6 +30,7 @@ import com.example.vince.marketplaceapp.MainActivity;
 import com.example.vince.marketplaceapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -164,6 +165,7 @@ public class AddOfferActivity extends AppCompatActivity {
 
     //Pop-up to confirm order.
     public void confirmOrder(View view) {
+        userNumber = 1;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("Confirm Order");
@@ -223,25 +225,6 @@ public class AddOfferActivity extends AppCompatActivity {
 
                             }
 
-                            final String str2 = str;
-                            rootRef.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    while(dataSnapshot.hasChild("user" + userNumber))
-                                    {
-                                        userNumber++;
-                                    }
-
-                                    rootRef.child("user" + userNumber).setValue(str2);
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-
-
                             if(filePath != null) {
                                 pd.show();
 
@@ -284,7 +267,6 @@ public class AddOfferActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-
 
 
     @Override
