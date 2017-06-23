@@ -182,6 +182,7 @@ public class AddOfferActivity extends AppCompatActivity {
                                 pd.show();
 
                                 StorageReference childRef = storageRef.child("image" + userNumber + ".jpg");
+                                userNumber++;
 
                                 //uploading the image
                                 UploadTask uploadTask = childRef.putFile(filePath);
@@ -189,7 +190,6 @@ public class AddOfferActivity extends AppCompatActivity {
                                 uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        userNumber++;
                                         pd.dismiss();
                                         Toast.makeText(AddOfferActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getBaseContext(), MainActivity.class));
