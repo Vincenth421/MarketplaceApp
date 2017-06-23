@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "214828935567-0b9o6qqiverdj6lrj7e4msbatkfprmt8.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.vince.marketplaceapp",
-            "certificate_hash": "28750d755dd8eefd98bb65687c4e5152a27f21c3"
-          }
-        },
-        {
           "client_id": "214828935567-e8t8k3bl2vpr8mjh7el7uk9t9sqcn56j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
