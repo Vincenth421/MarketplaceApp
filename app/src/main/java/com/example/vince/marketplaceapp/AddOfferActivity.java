@@ -54,12 +54,8 @@ public class AddOfferActivity extends AppCompatActivity {
     EditText editTextPrice;
     EditText editTextEmail;
     EditText editTextPhone;
-    private int userNumber = 1;
-    private int prevUserNumber = 0;
-    Button done;
-    Button chooseImg, uploadImg;
-    int PICK_IMAGE_REQUEST = 111;
     Uri filePath;
+    int userNumber = 1;
     ProgressDialog pd;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -125,7 +121,6 @@ public class AddOfferActivity extends AppCompatActivity {
 
     //Pop-up to confirm order.
     public void confirmOrder(View view) {
-        userNumber = 1;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("Confirm Order");
@@ -184,8 +179,7 @@ public class AddOfferActivity extends AppCompatActivity {
                                 str += ",none";
 
                             }
-                            long num = mainActivity.getUserNumber() + 1;
-                            rootRef.child("user" + num).setValue(str);
+                            str += "," + userNumber;
 
                             if(filePath != null) {
                                 pd.show();

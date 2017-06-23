@@ -35,7 +35,8 @@ public class MainActivity extends Activity  {
     DatabaseReference offerRef = rootRef.child("name");
     TextView offers;
     LinearLayout listings;
-    long userNumber = 0;
+    long userNumber;
+    String string = "";
 
     private boolean canDisplay = false;
 
@@ -128,20 +129,7 @@ public class MainActivity extends Activity  {
     }
 
     public long getUserNumber(){
-
-        rootRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userNumber = dataSnapshot.getChildrenCount();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         return userNumber;
-
     }
 
 
