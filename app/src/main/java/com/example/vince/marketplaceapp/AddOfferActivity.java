@@ -95,8 +95,9 @@ public class AddOfferActivity extends AppCompatActivity {
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 0);
             }});
+
         //Image stuff
-        chooseImg = (Button)findViewById(R.id.loadimage);
+        /*chooseImg = (Button)findViewById(R.id.loadimage);
         uploadImg = (Button)findViewById(R.id.buttonDone);
 
         pd = new ProgressDialog(this);
@@ -141,9 +142,11 @@ public class AddOfferActivity extends AppCompatActivity {
                     Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
 
     }
+
+
 
     public void cancel(View view)
     {
@@ -154,7 +157,7 @@ public class AddOfferActivity extends AppCompatActivity {
 
 
     //Pop-up to confirm order.
-    /**public void confirmOrder(View view) {
+    public void confirmOrder(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("Confirm Order");
@@ -216,6 +219,32 @@ public class AddOfferActivity extends AppCompatActivity {
                             rootRef.child("user2").setValue(str);
                             userNumber++;
 
+                            if(filePath != null) {
+                                pd.show();
+
+                                StorageReference childRef = storageRef.child("image.jpg");
+
+                                //uploading the image
+                                UploadTask uploadTask = childRef.putFile(filePath);
+
+                                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        pd.dismiss();
+                                        Toast.makeText(AddOfferActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        pd.dismiss();
+                                        Toast.makeText(AddOfferActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
+                            else {
+                                Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                            }
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
 
@@ -229,7 +258,7 @@ public class AddOfferActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
-    }*/
+    }
 
 
 
@@ -237,20 +266,18 @@ public class AddOfferActivity extends AppCompatActivity {
     protected void onActivityResult ( int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            filePath = data.getData();
 
+        if (resultCode == RESULT_OK) {
+            Uri targetUri = data.getData();
+            Bitmap bitmap;
             try {
-                //getting image from gallery
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-
-                //Setting image to ImageView
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
                 targetImage.setImageBitmap(bitmap);
-            } catch (Exception e) {
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-
     }
 }
 
