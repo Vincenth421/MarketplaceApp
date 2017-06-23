@@ -3,8 +3,12 @@ package com.example.vince.marketplaceapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RectShape;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -67,6 +71,21 @@ public class MainActivity extends Activity  {
                 else {
                     canDisplay = true;
                     for(DataSnapshot child : dataSnapshot.getChildren()) {
+                        ShapeDrawable sd = new ShapeDrawable();
+
+                        // Specify the shape of ShapeDrawable
+                        sd.setShape(new RectShape());
+
+                        // Specify the border color of shape
+                        sd.getPaint().setColor(Color.RED);
+
+                        // Set the border width
+                        sd.getPaint().setStrokeWidth(10f);
+
+                        // Specify the style is a Stroke
+                        sd.getPaint().setStyle(Paint.Style.STROKE);
+
+                        // Finally, add the drawable background to TextView
 
                         TextView offer = new TextView(MainActivity.this);
                         String str = child.getValue().toString();
@@ -74,6 +93,8 @@ public class MainActivity extends Activity  {
                         offer.setText(str.substring(0, str.indexOf(c)));
                         offer.setTextSize(24);
                         offer.setTypeface(null, Typeface.BOLD);
+                        offer.setBackground(sd);
+
                         listings.addView(offer);
                     }
                 }
