@@ -103,54 +103,6 @@ public class AddOfferActivity extends AppCompatActivity {
         pd = new ProgressDialog(this);
         pd.setMessage("Uploading....");
 
-        //Image stuff
-        /*chooseImg = (Button)findViewById(R.id.loadimage);
-        uploadImg = (Button)findViewById(R.id.buttonDone);
-
-        pd = new ProgressDialog(this);
-        pd.setMessage("Uploading....");
-
-
-        chooseImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
-            }
-        });
-        uploadImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(filePath != null) {
-                    pd.show();
-
-                    StorageReference childRef = storageRef.child("image.jpg");
-
-                    //uploading the image
-                    UploadTask uploadTask = childRef.putFile(filePath);
-
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            pd.dismiss();
-                            Toast.makeText(AddOfferActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            pd.dismiss();
-                            Toast.makeText(AddOfferActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-                else {
-                    Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
-
     }
 
 
@@ -225,10 +177,11 @@ public class AddOfferActivity extends AppCompatActivity {
 
                             }
 
+
                             if(filePath != null) {
                                 pd.show();
 
-                                StorageReference childRef = storageRef.child("image.jpg");
+                                StorageReference childRef = storageRef.child("image" + userNumber + ".jpg");
 
                                 //uploading the image
                                 UploadTask uploadTask = childRef.putFile(filePath);
@@ -236,6 +189,7 @@ public class AddOfferActivity extends AppCompatActivity {
                                 uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        userNumber++;
                                         pd.dismiss();
                                         Toast.makeText(AddOfferActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(getBaseContext(), MainActivity.class));
