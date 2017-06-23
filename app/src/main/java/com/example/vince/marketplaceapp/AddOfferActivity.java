@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -47,7 +48,6 @@ import java.io.InputStream;
 
 public class AddOfferActivity extends AppCompatActivity {
 
-    private static int RESULT_LOAD_IMG = 1;
     ImageView targetImage;
     EditText editTextName;
     EditText editTextDescription;
@@ -55,6 +55,7 @@ public class AddOfferActivity extends AppCompatActivity {
     EditText editTextEmail;
     EditText editTextPhone;
     private int userNumber = 1;
+    private int prevUserNumber = 0;
     Button done;
     Button chooseImg, uploadImg;
     int PICK_IMAGE_REQUEST = 111;
@@ -63,6 +64,12 @@ public class AddOfferActivity extends AppCompatActivity {
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference nameRef;
+
+    // MY_PREFS_NAME - a static String variable like:
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
+    public static final String MY_PREFS_NAME_2 = "MyPrefsFile2";
+
+    MainActivity mainActivity = new MainActivity();
 
     //creating reference to firebase storage
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -79,6 +86,7 @@ public class AddOfferActivity extends AppCompatActivity {
         editTextPrice = (EditText) findViewById(R.id.editTextPrice);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
+
         Spinner spinner = (Spinner) findViewById(R.id.spinner2);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -176,13 +184,13 @@ public class AddOfferActivity extends AppCompatActivity {
                                 str += ",none";
 
                             }
-
+                            long num = mainActivity.getUserNumber() + 1;
+                            rootRef.child("user" + num).setValue(str);
 
                             if(filePath != null) {
                                 pd.show();
 
-                                StorageReference childRef = storageRef.child("image" + userNumber + ".jpg");
-                                userNumber++;
+                                StorageReference childRef = storageRef.child("image" + 2 + ".jpg");
 
                                 //uploading the image
                                 UploadTask uploadTask = childRef.putFile(filePath);
