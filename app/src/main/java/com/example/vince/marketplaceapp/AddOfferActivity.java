@@ -111,6 +111,12 @@ public class AddOfferActivity extends AppCompatActivity {
         });
     }
 
+    public void cancel(View view)
+    {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+    }
+
 
 
     //Pop-up to confirm order.
@@ -169,11 +175,11 @@ public class AddOfferActivity extends AppCompatActivity {
                             }
                             else if(editTextPhone.getText().toString().equals(""))
                             {
-                                str += editTextEmail.getText().toString().equals("");
+                                str += editTextEmail.getText().toString();
                                 str += ",none";
 
                             }
-                            rootRef.child("user" + userNumber).setValue(str);
+                            rootRef.child("user2").setValue(str);
                             userNumber++;
                             startActivity(new Intent(getBaseContext(), MainActivity.class));
                         }
