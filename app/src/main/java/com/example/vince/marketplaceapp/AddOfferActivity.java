@@ -141,19 +141,20 @@ public class AddOfferActivity extends AppCompatActivity {
                             Toast.makeText(getBaseContext(), "You did not provide a name", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        sUsername = editTextPrice.getText().toString();
-
-                        //Checks if price is filled in.
-                        if (sUsername.matches("")) {
-                            Toast.makeText(getBaseContext(), "You did not provide a price", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
 
                         sUsername = editTextDescription.getText().toString();
 
                         //Checks if description is filled in.
                         if (sUsername.matches("")) {
                             Toast.makeText(getBaseContext(), "You did not provide a description", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        sUsername = editTextPrice.getText().toString();
+
+                        //Checks if price is filled in.
+                        if (sUsername.matches("")) {
+                            Toast.makeText(getBaseContext(), "You did not provide a price", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -182,10 +183,10 @@ public class AddOfferActivity extends AppCompatActivity {
                             {
                                 str += editTextEmail.getText().toString();
                                 str += ",none";
-
                             }
                             long num = mainActivity.getUserNumber() + 1;
                             rootRef.child("user" + num).setValue(str);
+
 
                             if(filePath != null) {
                                 pd.show();
