@@ -11,6 +11,7 @@
         android:layout_height="495dp"
         android:orientation="vertical"
         android:weightSum="1"
+        android:paddingLeft="5dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp">
 
