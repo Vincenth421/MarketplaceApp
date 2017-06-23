@@ -30,8 +30,11 @@ import com.example.vince.marketplaceapp.MainActivity;
 import com.example.vince.marketplaceapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -219,8 +222,25 @@ public class AddOfferActivity extends AppCompatActivity {
                                 str += ",none";
 
                             }
-                            rootRef.child("user2").setValue(str);
-                            userNumber++;
+
+                            final String str2 = str;
+                            rootRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    while(dataSnapshot.hasChild("user" + userNumber))
+                                    {
+                                        userNumber++;
+                                    }
+
+                                    rootRef.child("user" + userNumber).setValue(str2);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
 
                             if(filePath != null) {
                                 pd.show();
@@ -247,7 +267,8 @@ public class AddOfferActivity extends AppCompatActivity {
                             }
 
                             else {
-                                Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getBaseContext(), MainActivity.class));
                             }
 
                         }
