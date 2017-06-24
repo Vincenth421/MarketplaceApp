@@ -35,7 +35,7 @@ public class MainActivity extends Activity  {
     DatabaseReference offerRef = rootRef.child("name");
     TextView offers;
     LinearLayout listings;
-    long userNumber;
+    int userNumber = 0;
     String string = "";
 
     private boolean canDisplay = false;
@@ -111,6 +111,7 @@ public class MainActivity extends Activity  {
                         // Finally, add the drawable background to TextView
                         offer.setBackground(sd);
                         listings.addView(offer);
+                        userNumber =  Integer.parseInt(child.getValue().toString().substring(child.getValue().toString().lastIndexOf(",") + 2));
             }
         }
 
@@ -128,7 +129,7 @@ public class MainActivity extends Activity  {
         startActivity(intent);
     }
 
-    public long getUserNumber(){
+    public int getUserNumber(){
         return userNumber;
     }
 

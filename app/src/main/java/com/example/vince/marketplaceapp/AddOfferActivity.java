@@ -182,7 +182,11 @@ public class AddOfferActivity extends AppCompatActivity {
                                 str += editTextEmail.getText().toString();
                                 str += ",none";
                             }
-                            str += "," + userNumber;
+                            str += "," + mainActivity.getUserNumber() + 1;
+
+                            int num = mainActivity.getUserNumber() + 1;
+
+                            rootRef.child("user" + num).setValue(str);
 
 
                             if(filePath != null) {
