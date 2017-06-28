@@ -58,8 +58,10 @@ public class AddOfferActivity extends AppCompatActivity {
     EditText editTextEmail;
     EditText editTextPhone;
     Uri filePath;
-    int userNumber = 1;
+    long userNumber;
     ProgressDialog pd;
+    long num = 0;
+    String str;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference nameRef;
@@ -67,8 +69,6 @@ public class AddOfferActivity extends AppCompatActivity {
     // MY_PREFS_NAME - a static String variable like:
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     public static final String MY_PREFS_NAME_2 = "MyPrefsFile2";
-
-    MainActivity mainActivity = new MainActivity();
 
     //creating reference to firebase storage
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -169,7 +169,7 @@ public class AddOfferActivity extends AppCompatActivity {
                         else {
                             //nameRef = rootRef.push().setValue(str);
                             //nameRef = rootRef.child("user");
-                            String str = editTextName.getText().toString() + "," +
+                            str = editTextName.getText().toString() + "," +
                                     editTextDescription.getText().toString() + "," + "$" + editTextPrice.getText().toString()
                                     + ",";
                             if(editTextEmail.getText().toString().equals(""))
@@ -177,17 +177,13 @@ public class AddOfferActivity extends AppCompatActivity {
                                 str += "none,";
                                 str += editTextPhone.getText().toString();
                             }
-                            else if(editTextPhone.getText().toString().equals(""))
-                            {
+                            else if(editTextPhone.getText().toString().equals("")) {
                                 str += editTextEmail.getText().toString();
                                 str += ",none";
                             }
-                            str += "," + mainActivity.getUserNumber() + 1;
 
-                            int num = mainActivity.getUserNumber() + 1;
-
-                            rootRef.child("user" + num).setValue(str);
-
+                            DatabaseReference newRef = rootRef.push();
+                            newRef.setValue(str);
 
                             if(filePath != null) {
                                 pd.show();
@@ -212,7 +208,7 @@ public class AddOfferActivity extends AppCompatActivity {
                                     }
                                 });
 
-                                StorageReference childRef = storageRef.child("image" + userNumber + ".jpg");
+                                StorageReference childRef = storageRef.child(newRef.getKey() + ".jpg");
 
                                 //uploading the image
                                 UploadTask uploadTask = childRef.putFile(filePath);
@@ -269,6 +265,11 @@ public class AddOfferActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void setChildrenCount(long i)
+    {
+        userNumber = i;
     }
 }
 

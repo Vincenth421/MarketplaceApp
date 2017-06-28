@@ -29,22 +29,22 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class MainActivity extends Activity  {
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference offerRef = rootRef.child("name");
-    TextView offers;
     LinearLayout listings;
-    int userNumber = 0;
-    String string = "";
-
-    private boolean canDisplay = false;
+    DisplayOffer displayOffer;
+    TextView offer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listings = (LinearLayout) findViewById(R.id.listingsLayout);
+        displayOffer = new DisplayOffer();
 
         Spinner spinner = (Spinner) findViewById(R.id.categories_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -62,21 +62,23 @@ public class MainActivity extends Activity  {
     protected void onStart() {
         super.onStart();
         listings.removeAllViews();
-        rootRef.addValueEventListener(new ValueEventListener() {
+
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.hasChildren())
-                {
+                if (!dataSnapshot.hasChildren()) {
                     TextView offer = new TextView(MainActivity.this);
                     offer.setText("No Offers Yet");
                     offer.setTextSize(24);
                     offer.setTypeface(null, Typeface.BOLD);
                     offer.setClickable(false);
                     listings.addView(offer);
-                }
-                else {
-                    canDisplay = true;
-                    for(DataSnapshot child : dataSnapshot.getChildren()) {
+                } else {
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+                        final Intent displayIntent = new Intent(MainActivity.this, DisplayOffer.class);
+                        String str = child.getValue().toString();
+                        Character c = ',';
                         ShapeDrawable sd = new ShapeDrawable();
 
                         // Specify the shape of ShapeDrawable
@@ -91,29 +93,25 @@ public class MainActivity extends Activity  {
                         // Specify the style is a Stroke
                         sd.getPaint().setStyle(Paint.Style.STROKE);
 
-                        TextView offer = new TextView(MainActivity.this);
-                        final Intent displayIntent = new Intent(MainActivity.this, DisplayOffer.class);
-                        String str = child.getValue().toString();
-                        Character c = ',';
+                        offer = new TextView(MainActivity.this);
                         offer.setText(str.substring(0, str.indexOf(c)));
                         offer.setTextSize(24);
                         offer.setTypeface(null, Typeface.BOLD);
                         offer.setMaxEms(20);
                         offer.setClickable(true);
-                        offer.setOnClickListener(new View.OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-                                startActivity(displayIntent);
-
-                            }
-                        });
                         // Finally, add the drawable background to TextView
                         offer.setBackground(sd);
+                        offer.setTag((String)child.getKey());
+                        offer.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                displayOffer.setKey((String)offer.getTag());
+                                startActivity(displayIntent);
+                            }
+                        });
                         listings.addView(offer);
-                        userNumber =  Integer.parseInt(child.getValue().toString().substring(child.getValue().toString().lastIndexOf(",") + 2));
-            }
-        }
+                    }
+                }
 
             }
 
@@ -124,14 +122,10 @@ public class MainActivity extends Activity  {
         });
     }
 
+
     public void goToAddOfferScreen(View view){
         Intent intent = new Intent(this, AddOfferActivity.class);
         startActivity(intent);
     }
-
-    public int getUserNumber(){
-        return userNumber;
-    }
-
 
 }
