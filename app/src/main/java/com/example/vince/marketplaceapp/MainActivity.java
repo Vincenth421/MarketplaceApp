@@ -1,7 +1,8 @@
 package com.example.vince.marketplaceapp;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -31,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,7 +43,10 @@ public class MainActivity extends Activity  {
     LinearLayout listings;
     DisplayOffer displayOffer;
     TextView offer;
-    Fragment fragment = new Fragment();
+
+    Fragment fragment = new OfferFragment();
+    FragmentManager fragmentManager = getFragmentManager();
+    FragmentTransaction fragmentTransaction = ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +70,44 @@ public class MainActivity extends Activity  {
     @Override
     protected void onStart() {
         super.onStart();
-        /*listings.removeAllViews();
+        listings.removeAllViews();
 
-        ChildEventListener list = new ChildEventListener() {
+        rootRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(!dataSnapshot.hasChildren())
+                {
+                    fragmentTransaction.add(listings.getId(),fragment);
+
+                }
+                else
+                {
+
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        /*ChildEventListener list = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if (!dataSnapshot.hasChildren()) {

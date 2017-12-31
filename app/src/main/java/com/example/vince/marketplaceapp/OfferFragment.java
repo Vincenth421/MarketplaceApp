@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Created by vince on 12/25/2017.
@@ -15,14 +16,20 @@ import android.view.ViewGroup;
 
 public class OfferFragment extends Fragment{
 
-    @Override
-    public void setArguments(Bundle args) {
-        super.setArguments(args);
-    }
+    TextView title = (TextView) getView().findViewById(R.id.textTitle);
+    TextView price = (TextView) getView().findViewById(R.id.editTextPrice);
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.offer_layout,container,false);
         return view;
+    }
+
+    public void setTitle(String str){
+        title.setText(str);
+    }
+
+    public void setPrice(String str){
+        title.setText(str);
     }
 }
