@@ -2,7 +2,7 @@ package com.example.vince.marketplaceapp;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -46,7 +46,7 @@ public class MainActivity extends Activity  {
 
     Fragment fragment = new OfferFragment();
     FragmentManager fragmentManager = getFragmentManager();
-    FragmentTransaction fragmentTransaction = ;
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
