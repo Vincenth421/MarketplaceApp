@@ -1,7 +1,6 @@
 package com.example.vince.marketplaceapp;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,7 +21,6 @@ import android.view.View;
 import android.widget.*;
 
 import com.example.vince.marketplaceapp.R;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +38,6 @@ public class MainActivity extends Activity  {
     LinearLayout listings;
     DisplayOffer displayOffer;
     TextView offer;
-    Fragment fragment = new Fragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,83 +61,9 @@ public class MainActivity extends Activity  {
     @Override
     protected void onStart() {
         super.onStart();
-        /*listings.removeAllViews();
+        listings.removeAllViews();
 
-        ChildEventListener list = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if (!dataSnapshot.hasChildren()) {
-                    TextView offer = new TextView(MainActivity.this);
-                    offer.setText("No Offers Yet");
-                    offer.setTextSize(24);
-                    offer.setTypeface(null, Typeface.BOLD);
-                    offer.setClickable(false);
-                    listings.addView(offer);
-                } else {
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-
-                        final Intent displayIntent = new Intent(MainActivity.this, DisplayOffer.class);
-                        String str = child.getValue().toString();
-                        Character c = ',';
-                        ShapeDrawable sd = new ShapeDrawable();
-
-                        // Specify the shape of ShapeDrawable
-                        sd.setShape(new RectShape());
-
-                        // Specify the border color of shape
-                        sd.getPaint().setColor(Color.BLUE);
-
-                        // Set the border width
-                        sd.getPaint().setStrokeWidth(5f);
-
-                        // Specify the style is a Stroke
-                        sd.getPaint().setStyle(Paint.Style.STROKE);
-
-                        offer = new TextView(MainActivity.this);
-                        offer.setText(str.substring(0, str.indexOf(c)));
-                        offer.setTextSize(24);
-                        offer.setTypeface(null, Typeface.BOLD);
-                        offer.setMaxEms(20);
-                        offer.setClickable(true);
-                        // Finally, add the drawable background to TextView
-                        offer.setBackground(sd);
-                        offer.setTag((String) child.getKey());
-                        offer.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                displayOffer.setKey((String) offer.getTag());
-                                startActivity(displayIntent);
-                            }
-                        });
-                        listings.addView(offer);
-                    }
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        rootRef.addChildEventListener(list);
-
-        /*rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.hasChildren()) {
@@ -196,7 +119,7 @@ public class MainActivity extends Activity  {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });*/
+        });
     }
 
 

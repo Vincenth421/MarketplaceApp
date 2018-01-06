@@ -57,7 +57,6 @@ public class AddOfferActivity extends AppCompatActivity {
     EditText editTextPrice;
     EditText editTextEmail;
     EditText editTextPhone;
-    Spinner sp;
     Uri filePath;
     long userNumber;
     ProgressDialog pd;
@@ -87,14 +86,14 @@ public class AddOfferActivity extends AppCompatActivity {
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
 
-        sp = (Spinner) findViewById(R.id.spinner2);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array2, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        sp.setAdapter(adapter);
+        spinner.setAdapter(adapter);
         //mNetworkFragment = NetworkFragment.getInstance(getSupportFragmentManager(), "https://www.google.com");
 
 
@@ -120,6 +119,7 @@ public class AddOfferActivity extends AppCompatActivity {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+
 
 
     //Pop-up to confirm order.
@@ -165,13 +165,6 @@ public class AddOfferActivity extends AppCompatActivity {
                             return;
                         }
 
-                        //sUsername = (String) sp.getSelectedItem();
-                        //if(sUsername.contentEquals(sp.getPrompt()))
-                        //{
-                        //    Toast.makeText(getBaseContext(), "You did not select a category", Toast.LENGTH_SHORT).show();
-                         //   return;
-                        //}
-
                         //Returns to main menu
                         else {
                             //nameRef = rootRef.push().setValue(str);
@@ -188,8 +181,6 @@ public class AddOfferActivity extends AppCompatActivity {
                                 str += editTextEmail.getText().toString();
                                 str += ",none";
                             }
-
-                            //str += (String) sp.getSelectedItem();
 
                             DatabaseReference newRef = rootRef.push();
                             newRef.setValue(str);
