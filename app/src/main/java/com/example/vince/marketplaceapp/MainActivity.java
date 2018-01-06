@@ -2,7 +2,7 @@ package com.example.vince.marketplaceapp;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,7 +14,7 @@ import android.graphics.drawable.shapes.RectShape;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -44,8 +44,8 @@ public class MainActivity extends Activity  {
     DisplayOffer displayOffer;
     TextView offer;
 
-    Fragment fragment = new OfferFragment();
-    FragmentManager fragmentManager = getFragmentManager();
+    FragmentActivity fragment = new OfferFragment();
+    FragmentManager fragmentManager = fragment.getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
     @Override
@@ -77,7 +77,7 @@ public class MainActivity extends Activity  {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(!dataSnapshot.hasChildren())
                 {
-                    fragmentTransaction.add(listings.getId(),fragment);
+
 
                 }
                 else
