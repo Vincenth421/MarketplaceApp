@@ -62,6 +62,7 @@ public class AddOfferActivity extends AppCompatActivity {
     ProgressDialog pd;
     long num = 0;
     String str;
+    Spinner spinner;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference nameRef;
@@ -86,7 +87,7 @@ public class AddOfferActivity extends AppCompatActivity {
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner2);
+        spinner = (Spinner) findViewById(R.id.spinner2);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array2, android.R.layout.simple_spinner_item);
@@ -162,6 +163,13 @@ public class AddOfferActivity extends AppCompatActivity {
                         //Checks if contact info is filled in.
                         if (sUsername.matches("")&&sUsername2.matches("")) {
                             Toast.makeText(getBaseContext(), "You did not provide your contact information", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        sUsername = spinner.getSelectedItem().toString();
+                        //Checks if category is filled in.
+                        if (sUsername.matches("")) {
+                            Toast.makeText(getBaseContext(), "You did not select your category", Toast.LENGTH_SHORT).show();
                             return;
                         }
 

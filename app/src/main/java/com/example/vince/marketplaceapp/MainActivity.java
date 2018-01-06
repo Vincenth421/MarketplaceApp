@@ -122,6 +122,10 @@ public class MainActivity extends Activity  {
         });
     }
 
+    public void searchByCategory(){
+
+    }
+
 
     public void goToAddOfferScreen(View view){
         Intent intent = new Intent(this, AddOfferActivity.class);
