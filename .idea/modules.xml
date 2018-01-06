@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MarketplaceApp.iml" filepath="$PROJECT_DIR$/MarketplaceApp.iml" />
-      <module fileurl="file://C:\Users\vince\Documents\GitHub\MarketplaceApp\MarketplaceApp.iml" filepath="C:\Users\vince\Documents\GitHub\MarketplaceApp\MarketplaceApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\vince\Documents\GitHub\MarketplaceApp\app\app.iml" filepath="C:\Users\vince\Documents\GitHub\MarketplaceApp\app\app.iml" />
     </modules>
   </component>
 </project>
