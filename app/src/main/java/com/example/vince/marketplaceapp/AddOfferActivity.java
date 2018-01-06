@@ -180,7 +180,7 @@ public class AddOfferActivity extends AppCompatActivity {
                             //nameRef = rootRef.child("user");
                             str = editTextName.getText().toString() + "," +
                                     editTextDescription.getText().toString() + "," + "$" + editTextPrice.getText().toString()
-                                    + ",";
+                                    + "," + sUsername + ",";
                             if(editTextEmail.getText().toString().equals(""))
                             {
                                 str += "none,";
