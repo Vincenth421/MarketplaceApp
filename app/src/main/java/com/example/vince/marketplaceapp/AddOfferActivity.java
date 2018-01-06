@@ -166,9 +166,11 @@ public class AddOfferActivity extends AppCompatActivity {
                             return;
                         }
 
-                        sUsername = spinner.getSelectedItem().toString();
                         //Checks if category is filled in.
-                        if (sUsername.matches("")) {
+                        int selectedItemOfMySpinner = spinner.getSelectedItemPosition();
+                        System.out.println(selectedItemOfMySpinner);
+                        sUsername = (String) spinner.getItemAtPosition(selectedItemOfMySpinner);
+                        if (sUsername.equals("--Select--")) {
                             Toast.makeText(getBaseContext(), "You did not select your category", Toast.LENGTH_SHORT).show();
                             return;
                         }
