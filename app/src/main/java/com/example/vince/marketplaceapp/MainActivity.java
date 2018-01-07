@@ -44,7 +44,6 @@ public class MainActivity extends Activity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listings = (LinearLayout) findViewById(R.id.listingsLayout);
-        displayOffer = new DisplayOffer();
 
         Spinner spinner = (Spinner) findViewById(R.id.categories_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -101,11 +100,11 @@ public class MainActivity extends Activity  {
                         offer.setClickable(true);
                         // Finally, add the drawable background to TextView
                         offer.setBackground(sd);
-                        offer.setTag((String)child.getKey());
+                        offer.setTag(child.getKey().toString());
                         offer.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                displayOffer.setKey((String)offer.getTag());
+                                displayIntent.putExtra("KEY", offer.getTag().toString());
                                 startActivity(displayIntent);
                             }
                         });
