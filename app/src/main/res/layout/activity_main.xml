@@ -39,7 +39,7 @@
                 android:id="@+id/categories_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.9"
+                android:layout_weight="1"
                 android:spinnerMode="dropdown"
                 android:textAlignment="center"
                 android:textColor = "#000000"

@@ -27,7 +27,7 @@
             android:id="@+id/loadimage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Image (Optional)" />
+            android:text="Add Image (Required)" />
 
         <ImageView
             android:id="@+id/targetimage"

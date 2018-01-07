@@ -235,11 +235,13 @@ public class AddOfferActivity extends AppCompatActivity {
                                         Toast.makeText(AddOfferActivity.this, "Upload Failed -> " + e, Toast.LENGTH_SHORT).show();
                                     }
                                 });
+
+                                startActivity(new Intent(getBaseContext(), MainActivity.class));
                             }
 
                             else {
-                                //Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(getBaseContext(), MainActivity.class));
+                                Toast.makeText(AddOfferActivity.this, "Select an image", Toast.LENGTH_SHORT).show();
+
                             }
 
                         }

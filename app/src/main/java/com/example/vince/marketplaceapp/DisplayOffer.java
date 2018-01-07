@@ -88,9 +88,21 @@ public class DisplayOffer extends AppCompatActivity {
                     if (store[4].equals("none")) {
                         textViewEmail.setText("Not provided.");
                     }
+                    else{
+                        textViewEmail.setText(store[4]);
+                    }
                     if (store[5].equals("none")) {
                         textViewPhone.setText("Not provided.");
                     }
+                    else{
+                        textViewEmail.setText(store[5]);
+                    }
+
+                    storageRef = FirebaseStorage.getInstance().getReference().child(userKey + ".jpg");
+                    Glide.with(DisplayOffer.this)
+                            .using(new FirebaseImageLoader())
+                            .load(storageRef)
+                            .into(targetImage );
                 }
 
             }
