@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +23,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -33,13 +35,11 @@ public class DisplayOffer extends AppCompatActivity {
     TextView textViewEmail;
     TextView textViewPhone;
     String key = "";
-
-    MainActivity main = new MainActivity();
+    LinearLayout layout;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+    StorageReference storageRef;
 
 
     @Override
@@ -52,7 +52,9 @@ public class DisplayOffer extends AppCompatActivity {
         textViewPrice = (TextView) findViewById(R.id.textView3);
         textViewEmail = (TextView) findViewById(R.id.textView5);
         textViewPhone = (TextView) findViewById(R.id.textView6);
+        layout = (LinearLayout) findViewById(R.id)
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -74,28 +76,20 @@ public class DisplayOffer extends AppCompatActivity {
                     if (store[4].equals("none")) {
                         textViewPhone.setText("Not provided.");
                     }
-                    /*try {
-                        final File localFile = File.createTempFile(key, "jpg");
-                        storageRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                                Bitmap bitmap = BitmapFactory.decodeFile(localFile.getAbsolutePath());
-                                targetImage.setImageBitmap(bitmap);
 
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                            }
-                        });
-                    } catch (IOException e) {
-                    }*/
+
+                    storageRef = FirebaseStorage.getInstance().getReference().child(key + ".jpg");
 
                     // Load the image using Glide
-                    Glide.with(DisplayOffer.this)
-                            .using(new FirebaseImageLoader())
-                            .load(storageRef)
-                            .into(targetImage);
+                    try{
+                        Glide.with(DisplayOffer.this)
+                                .using(new FirebaseImageLoader())
+                                .load(storageRef)
+                                .into(targetImage);
+                    }catch(NullPointerException e)
+                    {
+
+                    }
 
 
                 }
