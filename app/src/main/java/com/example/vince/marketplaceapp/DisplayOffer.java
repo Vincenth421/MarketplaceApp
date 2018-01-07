@@ -73,9 +73,9 @@ public class DisplayOffer extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        rootRef.addChildEventListener(new ChildEventListener() {
+        rootRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(userKey)) {
                     String str = dataSnapshot.child(userKey).getValue().toString();
                     storageRef.child(userKey);
@@ -84,7 +84,6 @@ public class DisplayOffer extends AppCompatActivity {
                     textViewDescription.setText(store[1]);
                     textViewPrice.setText(store[2]);
                     textViewCategory.setText(store[3]);
-
                     if (store[4].equals("none")) {
                         textViewEmail.setText("Not provided.");
                     }
@@ -92,21 +91,6 @@ public class DisplayOffer extends AppCompatActivity {
                         textViewPhone.setText("Not provided.");
                     }
                 }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
             }
 
             @Override

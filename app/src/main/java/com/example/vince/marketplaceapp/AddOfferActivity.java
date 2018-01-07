@@ -60,12 +60,11 @@ public class AddOfferActivity extends AppCompatActivity {
     Uri filePath;
     long userNumber;
     ProgressDialog pd;
-    long num = 0;
     String str;
     Spinner spinner;
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference nameRef;
+
 
     // MY_PREFS_NAME - a static String variable like:
     public static final String MY_PREFS_NAME = "MyPrefsFile";
