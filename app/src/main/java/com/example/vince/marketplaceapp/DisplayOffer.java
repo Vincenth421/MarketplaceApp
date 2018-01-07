@@ -80,7 +80,6 @@ public class DisplayOffer extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChild(userKey)) {
                     String str = dataSnapshot.child(userKey).getValue().toString();
-                    storageRef.child(userKey);
                     String[] store = str.split(",");
                     textViewName.setText(store[0]);
                     textViewDescription.setText(store[1]);
@@ -93,6 +92,7 @@ public class DisplayOffer extends AppCompatActivity {
                         textViewPhone.setText("Not provided.");
                     }
                 }
+
             }
 
             @Override
