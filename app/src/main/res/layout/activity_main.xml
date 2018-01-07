@@ -48,13 +48,6 @@
 
 
             <Button
-                android:id="@+id/buttonSearch"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3.5"
-                android:background="@android:drawable/ic_search_category_default" />
-
-            <Button
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
