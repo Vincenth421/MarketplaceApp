@@ -121,7 +121,7 @@ public class MainActivity extends Activity  {
                             offer.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    displayOffer.setKey((String) offer.getTag());
+                                    displayIntent.putExtra("KEY", offer.getTag().toString());
                                     startActivity(displayIntent);
                                 }
                             });
@@ -163,7 +163,7 @@ public class MainActivity extends Activity  {
                                 offer.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        displayOffer.setKey((String) offer.getTag());
+                                        displayIntent.putExtra("KEY", offer.getTag().toString());
                                         startActivity(displayIntent);
                                     }
                                 });
