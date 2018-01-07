@@ -47,7 +47,6 @@ public class MainActivity extends Activity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listings = (LinearLayout) findViewById(R.id.listingsLayout);
-        displayOffer = new DisplayOffer();
 
         Spinner spinner = (Spinner) findViewById(R.id.categories_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
