@@ -41,6 +41,7 @@ public class MainActivity extends Activity  {
     LinearLayout listings;
     DisplayOffer displayOffer;
     TextView offer;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class MainActivity extends Activity  {
         setContentView(R.layout.activity_main);
         listings = (LinearLayout) findViewById(R.id.listingsLayout);
 
-        Spinner spinner = (Spinner) findViewById(R.id.categories_spinner);
+        spinner = (Spinner) findViewById(R.id.categories_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);
@@ -57,10 +58,120 @@ public class MainActivity extends Activity  {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         //mNetworkFragment = NetworkFragment.getInstance(getSupportFragmentManager(), "https://www.google.com");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                onStart();
+                listings.removeAllViews();
+                rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (!dataSnapshot.hasChildren()) {
+                            TextView offer = new TextView(MainActivity.this);
+                            offer.setText("No Offers Yet");
+                            offer.setTextSize(24);
+                            offer.setTypeface(null, Typeface.BOLD);
+                            offer.setClickable(false);
+                            listings.addView(offer);
+                        } else {
+                            Spinner spinner = (Spinner) findViewById(R.id.categories_spinner);
+                            int selectedItemOfMySpinner = spinner.getSelectedItemPosition();
+                            String category = (String) spinner.getItemAtPosition(selectedItemOfMySpinner);
+                            if(category.equals("All")) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    final Intent displayIntent = new Intent(MainActivity.this, DisplayOffer.class);
+                                    String str = child.getValue().toString();
+                                    Character c = ',';
+                                    ShapeDrawable sd = new ShapeDrawable();
+
+                                    // Specify the shape of ShapeDrawable
+                                    sd.setShape(new RectShape());
+
+                                    // Specify the border color of shape
+                                    sd.getPaint().setColor(Color.BLUE);
+
+                                    // Set the border width
+                                    sd.getPaint().setStrokeWidth(5f);
+
+                                    // Specify the style is a Stroke
+                                    sd.getPaint().setStyle(Paint.Style.STROKE);
+
+                                    offer = new TextView(MainActivity.this);
+                                    offer.setText(str.substring(0, str.indexOf(c)));
+                                    offer.setTextSize(24);
+                                    offer.setTypeface(null, Typeface.BOLD);
+                                    offer.setMaxEms(20);
+                                    offer.setClickable(true);
+                                    // Finally, add the drawable background to TextView
+                                    offer.setBackground(sd);
+                                    offer.setTag((String) child.getKey());
+                                    offer.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            displayIntent.putExtra("KEY", offer.getTag().toString());
+                                            startActivity(displayIntent);
+                                        }
+                                    });
+                                    listings.addView(offer);
+                                }
+                            }
+                            else{
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    String s = child.getValue().toString();
+                                    String[] temp = s.split(",");
+
+                                    if(temp[3].equals(category)) {
+                                        final Intent displayIntent = new Intent(MainActivity.this, DisplayOffer.class);
+                                        String str = child.getValue().toString();
+                                        Character c = ',';
+                                        ShapeDrawable sd = new ShapeDrawable();
+
+                                        // Specify the shape of ShapeDrawable
+                                        sd.setShape(new RectShape());
+
+                                        // Specify the border color of shape
+                                        sd.getPaint().setColor(Color.BLUE);
+
+                                        // Set the border width
+                                        sd.getPaint().setStrokeWidth(5f);
+
+                                        // Specify the style is a Stroke
+                                        sd.getPaint().setStyle(Paint.Style.STROKE);
+
+                                        offer = new TextView(MainActivity.this);
+                                        offer.setText(str.substring(0, str.indexOf(c)));
+                                        offer.setTextSize(24);
+                                        offer.setTypeface(null, Typeface.BOLD);
+                                        offer.setMaxEms(20);
+                                        offer.setClickable(true);
+                                        // Finally, add the drawable background to TextView
+                                        offer.setBackground(sd);
+                                        offer.setTag((String) child.getKey());
+                                        offer.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                displayIntent.putExtra("KEY", offer.getTag().toString());
+                                                startActivity(displayIntent);
+                                            }
+                                        });
+                                        listings.addView(offer);
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -69,118 +180,8 @@ public class MainActivity extends Activity  {
             }
 
         });
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        listings.removeAllViews();
 
-        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.hasChildren()) {
-                    TextView offer = new TextView(MainActivity.this);
-                    offer.setText("No Offers Yet");
-                    offer.setTextSize(24);
-                    offer.setTypeface(null, Typeface.BOLD);
-                    offer.setClickable(false);
-                    listings.addView(offer);
-                } else {
-                    Spinner spinner = (Spinner) findViewById(R.id.categories_spinner);
-                    int selectedItemOfMySpinner = spinner.getSelectedItemPosition();
-                    String category = (String) spinner.getItemAtPosition(selectedItemOfMySpinner);
-                    if(category.equals("All")) {
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            final Intent displayIntent = new Intent(MainActivity.this, DisplayOffer.class);
-                            String str = child.getValue().toString();
-                            Character c = ',';
-                            ShapeDrawable sd = new ShapeDrawable();
-
-                            // Specify the shape of ShapeDrawable
-                            sd.setShape(new RectShape());
-
-                            // Specify the border color of shape
-                            sd.getPaint().setColor(Color.BLUE);
-
-                            // Set the border width
-                            sd.getPaint().setStrokeWidth(5f);
-
-                            // Specify the style is a Stroke
-                            sd.getPaint().setStyle(Paint.Style.STROKE);
-
-                            offer = new TextView(MainActivity.this);
-                            offer.setText(str.substring(0, str.indexOf(c)));
-                            offer.setTextSize(24);
-                            offer.setTypeface(null, Typeface.BOLD);
-                            offer.setMaxEms(20);
-                            offer.setClickable(true);
-                            // Finally, add the drawable background to TextView
-                            offer.setBackground(sd);
-                            offer.setTag((String) child.getKey());
-                            offer.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    displayIntent.putExtra("KEY", offer.getTag().toString());
-                                    startActivity(displayIntent);
-                                }
-                            });
-                            listings.addView(offer);
-                        }
-                    }
-                    else{
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-                            String s = child.getValue().toString();
-                            String[] temp = s.split(",");
-
-                            if(temp[3].equals(category)) {
-                                final Intent displayIntent = new Intent(MainActivity.this, DisplayOffer.class);
-                                String str = child.getValue().toString();
-                                Character c = ',';
-                                ShapeDrawable sd = new ShapeDrawable();
-
-                                // Specify the shape of ShapeDrawable
-                                sd.setShape(new RectShape());
-
-                                // Specify the border color of shape
-                                sd.getPaint().setColor(Color.BLUE);
-
-                                // Set the border width
-                                sd.getPaint().setStrokeWidth(5f);
-
-                                // Specify the style is a Stroke
-                                sd.getPaint().setStyle(Paint.Style.STROKE);
-
-                                offer = new TextView(MainActivity.this);
-                                offer.setText(str.substring(0, str.indexOf(c)));
-                                offer.setTextSize(24);
-                                offer.setTypeface(null, Typeface.BOLD);
-                                offer.setMaxEms(20);
-                                offer.setClickable(true);
-                                // Finally, add the drawable background to TextView
-                                offer.setBackground(sd);
-                                offer.setTag((String) child.getKey());
-                                offer.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        displayIntent.putExtra("KEY", offer.getTag().toString());
-                                        startActivity(displayIntent);
-                                    }
-                                });
-                                listings.addView(offer);
-                            }
-                        }
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
 
