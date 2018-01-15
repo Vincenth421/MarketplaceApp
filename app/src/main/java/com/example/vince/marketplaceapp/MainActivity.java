@@ -39,7 +39,6 @@ public class MainActivity extends Activity  {
 
     DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
     LinearLayout listings;
-    DisplayOffer displayOffer;
     TextView offer;
 
     @Override
