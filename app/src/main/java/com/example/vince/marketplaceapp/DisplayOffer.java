@@ -60,7 +60,7 @@ public class DisplayOffer extends AppCompatActivity {
         textViewPhone = (TextView) findViewById(R.id.textViewNumber);
         textViewCategory = (TextView) findViewById(R.id.category);
 
-        if (savedInstanceState == null) {
+        /*if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 userKey = null;
@@ -69,12 +69,10 @@ public class DisplayOffer extends AppCompatActivity {
             }
         } else {
             userKey = (String) savedInstanceState.getSerializable("KEY");
-        }
-    }
+        }*/
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        userKey = (String) getIntent().getExtras().getString("KEY");
+
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -112,6 +110,11 @@ public class DisplayOffer extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
 }

@@ -108,14 +108,18 @@ public class MainActivity extends Activity  {
                                     // Finally, add the drawable background to TextView
                                     offer.setBackground(sd);
                                     offer.setTag((String) child.getKey());
-                                    offer.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            displayIntent.putExtra("KEY", offer.getTag().toString());
-                                            startActivity(displayIntent);
-                                        }
-                                    });
                                     listings.addView(offer);
+                                    for(int i = 0; i < listings.getChildCount(); i++)
+                                    {
+                                        final TextView t = (TextView) listings.getChildAt(i);
+                                        t.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                displayIntent.putExtra("KEY", (String) t.getTag());
+                                                startActivity(displayIntent);
+                                            }
+                                        });
+                                    }
                                 }
                             }
                             else{
@@ -150,14 +154,19 @@ public class MainActivity extends Activity  {
                                         // Finally, add the drawable background to TextView
                                         offer.setBackground(sd);
                                         offer.setTag((String) child.getKey());
-                                        offer.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                displayIntent.putExtra("KEY", offer.getTag().toString());
-                                                startActivity(displayIntent);
-                                            }
-                                        });
                                         listings.addView(offer);
+
+                                        for(int i = 0; i < listings.getChildCount(); i++)
+                                        {
+                                            final TextView t = (TextView) listings.getChildAt(i);
+                                            t.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    displayIntent.putExtra("KEY", (String) t.getTag());
+                                                    startActivity(displayIntent);
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                             }
@@ -179,7 +188,6 @@ public class MainActivity extends Activity  {
             }
 
         });
-
 
     }
 
