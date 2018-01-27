@@ -93,7 +93,7 @@ public class DisplayOffer extends AppCompatActivity {
                         textViewPhone.setText("Not provided.");
                     }
                     else{
-                        textViewEmail.setText(store[5]);
+                        textViewPhone.setText(store[5]);
                     }
 
                     storageRef = FirebaseStorage.getInstance().getReference().child(userKey + ".jpg");
